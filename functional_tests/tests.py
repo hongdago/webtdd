@@ -6,10 +6,10 @@ DESC: Beging TDD
 """
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import unittest
+from django.test import LiveServerTestCase
 import time
 
-class NewVistorTest(unittest.TestCase):
+class NewVistorTest(LiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(3)  #隐式等待
@@ -26,7 +26,7 @@ class NewVistorTest(unittest.TestCase):
     def test_can_start_a_list_and_retrieve_it_later(self):
         #伊迪丝听说有一个很酷的在线待办事项应用
         #她去看了这个应用的首页
-        self.browser.get("http://127.0.0.1:8000")
+        self.browser.get(self.live_server_url)
 
         #她注意到网页的标题和头部都包含“To-Do”这个词
         self.assertIn('To-Do' ,self.browser.title)
@@ -58,6 +58,7 @@ class NewVistorTest(unittest.TestCase):
                 
         
         #页面再次更新，她的清单上显示了这两个待办事项
+        time.sleep(3) 
         self.check_for_row_in_list_table("1: Buy peacock feathers")
         self.check_for_row_in_list_table("2: Use peacock feathers to make a fly")
 
@@ -73,7 +74,3 @@ class NewVistorTest(unittest.TestCase):
         #她访问那个URL，发现她的待办事项列表还在
         
         #她很满意，去睡觉了
-
-if __name__ == '__main__':
-    #unittest.main(warnings='ignore')
-    unittest.main()
