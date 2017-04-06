@@ -1,43 +1,16 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 """
-FileName:functional_tests.py
+FileName:test_simple_list_creation.py
 DESC: Beging TDD
 """
+from .base import FunctionalTest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import sys
 import time
 
-class NewVistorTest(StaticLiveServerTestCase):
-    @classmethod
-    def setUpClass(cls):
-        for arg in sys.argv:
-            if 'liveserver' in arg:
-                cls.server_url= 'http://'+arg.split('=')[1]
-                return
-        super().setUpClass()
-        cls.server_url=cls.live_server_url
-
-    @classmethod
-    def tearDownClass(cls):
-        if cls.server_url == cls.live_server_url:
-            super().tearDownClass()
-
-    def setUp(self):
-        self.browser = webdriver.Firefox()
-        self.browser.implicitly_wait(3)  #隐式等待
-
-    def tearDown(self):
-        self.browser.quit()
-
-    def check_for_row_in_list_table(self,row_text):
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertIn(row_text,[row.text for row in rows])
-
-
+class NewVistorTest(FunctionalTest):
     def test_can_start_a_list_and_retrieve_it_later(self):
         #伊迪丝听说有一个很酷的在线待办事项应用
         #她去看了这个应用的首页
