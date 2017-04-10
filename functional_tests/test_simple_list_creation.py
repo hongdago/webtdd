@@ -49,7 +49,7 @@ class NewVistorTest(FunctionalTest):
                 
         
         #页面再次更新，她的清单上显示了这两个待办事项
-        time.sleep(1) 
+        time.sleep(2) 
 
         self.check_for_row_in_list_table("1: Buy peacock feathers")
         self.check_for_row_in_list_table("2: Use peacock feathers to make a fly")
